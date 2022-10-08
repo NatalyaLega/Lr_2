@@ -28,7 +28,7 @@ public:
 	//методы под первую лабу
 	int show_options_point_one();
 	void show_items_alphabetic_order();
-	void find_shop();
+	void find_route();
 	void add_element();
 	void redact_element();
 	void delete_element();

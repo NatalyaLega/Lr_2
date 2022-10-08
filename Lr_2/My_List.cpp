@@ -14,19 +14,19 @@ My_List::~My_List()
 	if (head != NULL)
 	{
 		Elem* buffer;
-		while (head->next != NULL)
+		while (head->m_data != NULL)
 		{
 			buffer = head;
 			head = head->next;
-			buffer->m_data->~Price();
+			buffer->m_data->~Route();
 			delete(buffer);
 		}
-		head->m_data->~Price();
+		head->m_data->~Route();
 		delete(head);
 	}
 }
 
-Price* My_List::operator[] (const int index)
+Route* My_List::operator[] (const int index)
 {
 	if ((index >= m_size) || (index < 0))
 	{
@@ -59,7 +59,7 @@ void My_List::insert(int index)
 
 	if (buffer->next == NULL)
 	{
-		buffer->m_data->~Price();
+		buffer->m_data->~Route();
 		--m_size;
 		return;
 	}
@@ -68,7 +68,7 @@ void My_List::insert(int index)
 	{
 		head = buffer->next;
 		head->prev = 0;
-		buffer->m_data->~Price();
+		buffer->m_data->~Route();
 		--m_size;
 		return;
 	}
@@ -81,11 +81,11 @@ void My_List::insert(int index)
 	Elem* buffer1 = buffer1 = buffer->next; //переходим на удаляемый элемент
 	buffer->next = buffer1->next;//присавеваем указатель на следующий
 
-	buffer1->m_data->~Price();
+	buffer1->m_data->~Route();
 	--m_size;
 }
 
-void My_List::insert(Price* n_data)
+void My_List::insert(Route* n_data)
 {
 	Elem* tmp = new Elem;
 	tmp->prev = 0;
@@ -111,7 +111,7 @@ void My_List::insert(Price* n_data)
 
 int My_List::get_size() { return m_size; }
 
-void My_List::sort()
+void My_List::sort()  //надо чтобы сортировалось по номеру маршрута
 {
 	if (m_size <= 1)
 	{
@@ -125,9 +125,9 @@ void My_List::sort()
 	{
 		while (right)
 		{
-			string lper = left->m_data->get_shop();
-			string rper = right->m_data->get_shop();
-			if (lper.compare(rper) < 0)
+			string lper = left->m_data->get_number();
+			string rper = right->m_data->get_number();
+			if (std::stoi(lper) < std::stoi(rper))
 			{
 				temp->m_data = left->m_data;
 				left->m_data = right->m_data;
@@ -149,23 +149,23 @@ void My_List::finding(string name)
 
 	Elem* tmp;
 	tmp = head;
-	int shop_is_in = 0; //признак отстутствия введенного названия магазина
-	//int name_shop = 0; //признак вывода названия магазина на экран
+	int route_is_in = 0; //признак отстутствия введенного названия
+	//int name_shop = 0; //признак вывода названия на экран
 
 	for (int i = 0; i < m_size; i++)
 	{
-		if (tmp->m_data->get_shop().compare(name) == 0)
+		if (tmp->m_data->get_start().compare(name) == 0 || tmp->m_data->get_end().compare(name) == 0)
 		{
-			cout << tmp->m_data->get_item() << ", " << tmp->m_data->get_cost() << endl;
+			cout << tmp->m_data->get_start() << ", " << tmp->m_data->get_number() << endl;
 
-			shop_is_in = 1;
+			route_is_in = 1;
 		}
 		tmp = tmp->next;
 	}
 
-	if (shop_is_in == 0)
+	if (route_is_in == 0)
 	{
-		throw "There's no inputtes shop.";
+		throw "There's no inputtes route.";
 	}
 	//system("pause");
 }

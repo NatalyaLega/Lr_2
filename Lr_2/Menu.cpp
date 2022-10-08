@@ -53,8 +53,8 @@ int Menu::show_options_point_one()
 	system("cls");
 	int c;
 	cout << "What do you want to do?" << endl;
-	cout << "1 - Show all items (alphabetic order by shops)" << endl;
-	cout << "2 - Find shop by its name" << endl;
+	cout << "1 - Show all route (order by numbers)" << endl;
+	cout << "2 - Find route by its start or finish" << endl;
 	cout << "3 - Add element" << endl;
 	cout << "4 - Redact element" << endl;
 	cout << "5 - Delete element" << endl;
@@ -85,12 +85,12 @@ void Menu::show_items_alphabetic_order()
 	system("pause");
 }
 
-void Menu::find_shop()
+void Menu::find_route()
 {
 	system("cls");
 	string input_name;
 	cin.ignore(32767, '\n');
-	cout << "Input shop name: ";
+	cout << "Input routes name: ";
 	getline(cin, input_name);
 
 	try
@@ -108,21 +108,21 @@ void Menu::add_element()
 	system("cls");
 	try
 	{
-		Price* new_price = new Price;
-		string new_item, new_shop, new_cost;
+		Route* new_route = new Route;
+		string new_start, new_end, new_number;
 
 		cin.ignore(32767, '\n');
-		cout << "You want to add new item.\nInput its name: ";
-		getline(cin, new_item);
-		new_price->set_item(new_item);
-		cout << "Input its shop: ";
-		getline(cin, new_shop);
-		new_price->set_shop(new_shop);
-		cout << "Input its cost in rubles: ";
-		getline(cin, new_cost);
-		new_price->set_cost(new_cost);
+		cout << "You want to add new item.\nInput its start names: ";
+		getline(cin, new_start);
+		new_route->set_start(new_start);
+		cout << "Input its finish names: ";
+		getline(cin, new_end);
+		new_route->set_end(new_end);
+		cout << "Input its number: ";
+		getline(cin, new_number);
+		new_route->set_number(new_number);
 
-		list.insert(new_price);
+		list.insert(new_route);
 	}
 	catch (const char* ex) { cout << "Error: " << ex << endl; }
 	system("pause");
@@ -207,7 +207,7 @@ void Menu::point_one()
 			show_items_alphabetic_order();
 			break;
 		case 2:
-			find_shop();
+			find_route();
 			break;
 		case 3:
 			add_element();

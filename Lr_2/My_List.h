@@ -4,7 +4,7 @@ using namespace std;
 
 typedef struct Elem
 {
-	Price* m_data;
+	Route* m_data; 
 	Elem* next;
 	Elem* prev;
 } Elem;
@@ -21,11 +21,11 @@ public:
 	My_List(int size);
 	~My_List();
 
-	Price* operator[] (int index);
+	Route* operator[] (int index);
 
 	int get_size();
-	void insert(Price* n_data); //добаляем элемент в начало списка - перегруженная операция
+	void insert(Route* n_data); //добаляем элемент в начало списка - перегруженная операция
 	void insert(int index); //удалить элемент из списка - перегруженная операция
-	void sort(); //пузырьковая сортировка магазинов по алфавиту
+	void sort(); //пузырьковая сортировка магазинов по алфавиту(ТУТ НАДО СОРТИРОВКА ПО НОМЕРУ)
 	void finding(string name); //поиск элементов списка по параметру с клавиатуры
 };

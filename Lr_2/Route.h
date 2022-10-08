@@ -3,27 +3,27 @@
 
 using namespace std;
 
-class Price
+class Route
 {
 private:
 
-	string item; //название товара
-	string shop; //название магазина
-	string cost; //цена товара в рублях
+	string start; //название начального пункта
+	string end; //название конечного пу
+	string number; //номер маршрута
 
 public:
 
-	Price();
-	Price(string item, string shop, int cost);
-	Price(const Price& Price_copy);
-	~Price();
+	Route();
+	Route(string start, string shop, string number);
+	Route(const Route& Price_copy);
+	~Route();
 
-	void set_item(string item);
-	void set_shop(string shop);
-	void set_cost(string cost);
-	string get_item() const;
-	string get_shop() const;
-	string get_cost() const;
+	void set_start(string start);
+	void set_end(string end);
+	void set_number(string number);
+	string get_start() const;
+	string get_end() const;
+	string get_number() const;
 	void show();
 	void redact_str(int num_str, string red_str);
 };

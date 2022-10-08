@@ -4,83 +4,83 @@
 
 using namespace std;
 
-Price::Price()
+Route::Route()
 {
-	cout << "Constructor Price was called." << endl;
+	cout << "Constructor Route was called." << endl;
 }
 
-Price::Price(string item, string shop, int cost)
+Route::Route(string start, string end, string number)
 {
-	this->item = item;
-	this->shop = shop;
-	this->cost = cost;
-	cout << "Constructor Price was called." << endl;
+	this->start = start;
+	this->end = end;
+	this->number = number;
+	cout << "Constructor Route was called." << endl;
 }
 
-Price::Price(const Price& Price_copy)
+Route::Route(const Route& Route_copy)
 {
-	this->item = Price_copy.item;
-	this->shop = Price_copy.shop;
-	this->cost = Price_copy.cost;
-	cout << "Copy constructor Price was called." << endl;
+	this->start = Route_copy.start;
+	this->end = Route_copy.end;
+	this->number = Route_copy.number;
+	cout << "Copy constructor Route was called." << endl;
 }
 
-Price::~Price()
+Route::~Route()
 {
-	cout << "Destructor Price was called." << endl;
+	cout << "Destructor Route was called." << endl;
 }
 
-void Price::set_item(string item)
+void Route::set_start(string start)
 {
-	this->item = item;
+	this->start = start;
 }
 
-void Price::set_shop(string shop)
+void Route::set_end(string end)
 {
-	this->shop = shop;
+	this->end = end;
 }
 
-void Price::set_cost(string cost)
+void Route::set_number(string number)
 {
-	this->cost = cost;
+	this->number = number;
 }
 
-string Price::get_item() const
+string Route::get_start() const
 {
-	return item;
+	return start;
 }
 
-string Price::get_shop() const
+string Route::get_end() const
 {
-	return shop;
+	return end;
 }
 
-string Price::get_cost() const
+string Route::get_number() const
 {
-	return cost;
+	return number;
 }
 
-void Price::show()
+void Route::show()
 {
 	cout << "------------------------------------" << endl;
-	cout << "1. Shop: " << shop << endl;
-	cout << "2. Item: " << item << endl;
-	cout << "3. Cost: " << cost << endl;
+	cout << "1. Starting point: " << end << endl;
+	cout << "2. Final point: " << start << endl;
+	cout << "3. Route number: " << number << endl;
 	cout << "------------------------------------" << endl;
 }
 
-void Price::redact_str(int num_str, string red_str)
+void Route::redact_str(int num_str, string red_str)
 {
 	switch (num_str)
 	{
 	case 1:
-		this->shop = red_str;
+		this->end = red_str;
 		break;
 	case 2:
-		this->item = red_str;
+		this->start = red_str;
 		break;
 	case 3:
-		this->cost = red_str;
+		this->number = red_str;
 		break;
 	default:
 		throw "Incorrect number of string!";
