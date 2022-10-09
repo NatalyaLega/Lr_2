@@ -137,7 +137,7 @@ void My_List::sort()  //надо чтобы сортировалось по номеру маршрута
 		}
 		left = left->next;
 		right = left->next;
-	}
+	} 
 }
 
 void My_List::finding(string name)
@@ -156,7 +156,7 @@ void My_List::finding(string name)
 	{
 		if (tmp->m_data->get_start().compare(name) == 0 || tmp->m_data->get_end().compare(name) == 0)
 		{
-			cout << tmp->m_data->get_start() << ", " << tmp->m_data->get_number() << endl;
+			cout << "Start: " << tmp->m_data->get_start() << "\n " << "Finish: " << tmp->m_data->get_end() << "\n " << "Number route: " << tmp->m_data->get_number() << endl;
 
 			route_is_in = 1;
 		}

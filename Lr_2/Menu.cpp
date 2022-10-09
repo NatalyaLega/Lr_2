@@ -65,7 +65,7 @@ int Menu::show_options_point_one()
 	return c;
 }
 
-void Menu::show_items_alphabetic_order()
+void Menu::show_items_order()
 {
 	try
 	{
@@ -108,21 +108,23 @@ void Menu::add_element()
 	system("cls");
 	try
 	{
-		Route* new_route = new Route;
-		string new_start, new_end, new_number;
+		for (int i = 1; i <=8; i++) {
+			Route* new_route = new Route;
+			string new_start, new_end, new_number;
 
-		cin.ignore(32767, '\n');
-		cout << "You want to add new item.\nInput its start names: ";
-		getline(cin, new_start);
-		new_route->set_start(new_start);
-		cout << "Input its finish names: ";
-		getline(cin, new_end);
-		new_route->set_end(new_end);
-		cout << "Input its number: ";
-		getline(cin, new_number);
-		new_route->set_number(new_number);
+			cin.ignore(32767, '\n');
+			cout << "You want to add new item.\nInput its start names: ";
+			getline(cin, new_start);
+			new_route->set_start(new_start);
+			cout << "Input its finish names: ";
+			getline(cin, new_end);
+			new_route->set_end(new_end);
+			cout << "Input its number: ";
+			getline(cin, new_number);
+			new_route->set_number(new_number);
 
-		list.insert(new_route);
+			list.insert(new_route);
+		}
 	}
 	catch (const char* ex) { cout << "Error: " << ex << endl; }
 	system("pause");
@@ -204,7 +206,7 @@ void Menu::point_one()
 		switch (show_options_point_one())
 		{
 		case 1:
-			show_items_alphabetic_order();
+			show_items_order();
 			break;
 		case 2:
 			find_route();

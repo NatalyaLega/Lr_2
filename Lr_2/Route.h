@@ -8,7 +8,7 @@ class Route
 private:
 
 	string start; //название начального пункта
-	string end; //название конечного пу
+	string end; //название конечного пункта
 	string number; //номер маршрута
 
 public:
