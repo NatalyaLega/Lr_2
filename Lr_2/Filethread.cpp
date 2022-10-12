@@ -1,10 +1,14 @@
 #include "Filethread.h"
 #include <iostream>
-#include <fstream>
+#include <stdlib.h>
+#include <conio.h>
+#include <fstream>//Для работы с файлами
+#include <sstream>//Для работы со строками
 #include <string>
-#include <sstream>
-
+#include <cstdio>//feof
+#define MAX_LINE 100
 using namespace std;
+
 
 Filethread::Filethread() { cout << "Constructor Filethread was called." << endl; }
 
@@ -12,80 +16,137 @@ Filethread::~Filethread() { cout << "Destructor Filethread was called." << endl;
 
 void Filethread::scan_text()
 {
-	try
-	{
-		string str;
-		ifstream ifs;
-		ifs.open("data.txt");
-		if (!ifs.is_open())
+	ifstream in;//Файл для чтения
+	setlocale(LC_ALL, "rus");//Подключение кодировки с русскими буквами
+	char str[MAX_LINE];//Служебная строка для ввода данных в консоль
+	FILE* fpin;
+	int choise;
+	int cnt = 0;
+	int count = 0;
+	int size = 0;
+	bool flag = false;
+	char mas[MAX_LINE];
+	bool flag1, flag2, flag3;
+	flag1 = flag2 = flag3 = 0;
+	int flag4 = 0;//флаг что не после букв
+	while (1)
+	{//Цикл для проверки правильности введенной команды в меню {
+		cout << "1 - Чтение из из фала строк, содержащих двоухзначные числа\n2 - Выход\n\n";//Информация для пользователя
+		cout << "Выбирете команду:\n";
+		
+		cin >> choise;
+		
+		char ch;
+		switch (choise)
 		{
-			throw "Error opening file!";
-		}
-		stringstream iss; //строковыводящая переменная
-		string buf;
-		char c, c1, c2;
-		int flag = 0;
-
-		while (getline(ifs, str)) //цикл вывода предложени, начинающихся с однобуквенного слова
-		{
-			iss << str;
-			c1 = iss.get();
-			c2 = iss.get();
-			if (c2 == ' ' || c2 == '.' || c2 == '?' || c2 == '!' || c2 == ',')
+		case 1: system("cls");
+			try
 			{
-				flag = 1;
-			}
-			buf.push_back(c1);
-			buf.push_back(c2);
-			do {
-				c = iss.get();
-				if (flag == 1)
+				in.open("test.txt");
+				if (!in)//Ошибка открытия файла
 				{
-					buf.push_back(c);
+					exception err("Ошибка открытия файла\n");
+					throw err;
 				}
-			} while (c != EOF);
-			if (flag == 1)
-			{
-				cout << buf << endl;
-			}
-			flag = 0;
-			iss.clear();
-			buf.clear();
-		}
-
-		ifs.close();
-		ifs.open("data.txt");
-		if (!ifs.is_open())
-		{
-			throw "Error opening file!";
-		}
-
-		while (getline(ifs, str)) //цикл вывода остальных предложений
-		{
-			iss << str;
-			c1 = iss.get();
-			c2 = iss.get();
-			if (c2 != ' ' && c2 != '.' && c2 != '?' && c2 != '!' && c2 != ',')
-			{
-				flag = 1;
-			}
-			buf.push_back(c1);
-			buf.push_back(c2);
-			do {
-				c = iss.get();
-				if (flag == 1)
+				if (in.peek() == -1)
 				{
-					buf.push_back(c);
+					exception err("\nОткрываемый файл пустой\n");
+					throw err;
 				}
-			} while (c != EOF);
-			if (flag == 1)
-			{
-				cout << buf << endl;
+				//основная логика 
+				while (((ch = in.get()) != EOF)) //пока не конец файла
+				{
+					size++;
+					if (ch >= '0' && ch <= '9')
+					{
+						flag1 = 1;//Сейчас цифра
+						cnt++;
+					}
+					else
+					{
+						if (flag2 == 1 && (ch == ' ' || ch == '\n'))
+						{
+							flag3 = 1;
+							cnt = 0;
+							flag1 = 0;
+							flag2 = 0;
+							flag4 = 0;
+						}
+						else
+						{
+							if (ch == ' ')
+								flag4 = 0;
+							else
+								flag4 = 1;
+							flag2 = 0;
+							flag1 = 0;
+							cnt = 0;
+						}
+					}
+
+					if (flag1 == 1 && cnt == 2 && flag4 == 0) //2 цифры подряд
+					{
+						flag2 = 1;
+					}
+					if (flag1 == 1 && cnt == 3)//3 цифры подряд
+					{
+						flag1 = 0;
+						flag2 = 0;
+						cnt = 0;
+						flag4 = 0;
+					}
+					if ((ch == '\n' && flag2 == 1) || (ch == '\n' && flag3 == 1))
+					{
+						mas[size - 1] = '\0';
+						cout << mas << "\n";
+						cnt = 0;
+						flag1 = flag2 = flag3 = flag4 = 0;
+
+						for (int i = 0; i < size; i++)
+						{
+							mas[i] = 0;
+						}
+						size = 0;
+						continue;
+					}
+					else if (ch == '\n')
+					{
+						flag1 = flag2 = flag3 = flag4 = 0;
+						for (int i = 0; i < size; i++)
+						{
+							mas[i] = 0;
+						}
+						size = 0;
+					}
+					if (size != 0)
+						mas[size - 1] = ch;
+
+				}
+				in.close();
 			}
-			flag = 0;
-			iss.clear();
-			buf.clear();
+			catch (exception& err)
+			{
+				cout << err.what() << endl << endl;
+
+				in.close();
+				cout << "\nИсходный файл закрыт.\n";
+			}
+			if (flag3 == 1 || flag2 == 1)
+			{
+				mas[size] = '\0';
+				cout << mas << "\n";
+				cnt = 0;
+				flag1 = flag2 = flag3 = flag4 = 0;
+			}
+			cout << "\nНажмите любую кнопку...\n";
+			_getch();
+			//return 0;
+			break;
+		case 2:
+			cout << "\nПрограмма заверешена...\n";
+			_getch();
+			//return 0;
+			break;
 		}
 	}
-	catch (const char* ex) { cout << "Error: " << ex << endl; }
 }
