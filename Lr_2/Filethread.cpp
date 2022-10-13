@@ -6,6 +6,7 @@
 #include <sstream>//Для работы со строками
 #include <string>
 #include <cstdio>//feof
+#include "Menu.h"
 #define MAX_LINE 100
 using namespace std;
 
@@ -31,7 +32,7 @@ void Filethread::scan_text()
 	int flag4 = 0;//флаг что не после букв
 	while (1)
 	{//Цикл для проверки правильности введенной команды в меню {
-		cout << "1 - Чтение из из фала строк, содержащих двоухзначные числа\n2 - Выход\n\n";//Информация для пользователя
+		cout << "1 - Чтение из из фала строк, содержащих 2значные числа\n2 - Выход\n\n";//Информация для пользователя
 		cout << "Выбирете команду:\n";
 		
 		cin >> choise;
@@ -53,7 +54,7 @@ void Filethread::scan_text()
 					exception err("\nОткрываемый файл пустой\n");
 					throw err;
 				}
-				//основная логика 
+				           ///ОСНОВНАЯ ЛОГИКА///
 				while (((ch = in.get()) != EOF)) //пока не конец файла
 				{
 					size++;
@@ -66,8 +67,8 @@ void Filethread::scan_text()
 					{
 						if (flag2 == 1 && (ch == ' ' || ch == '\n'))
 						{
-							flag3 = 1;
-							cnt = 0;
+							flag3 = 1;  //значит, что 2 числа и потом пропуск или конец строки
+							cnt = 0; //обнуляем счетчик
 							flag1 = 0;
 							flag2 = 0;
 							flag4 = 0;
@@ -75,9 +76,9 @@ void Filethread::scan_text()
 						else
 						{
 							if (ch == ' ')
-								flag4 = 0;
+								flag4 = 0; //закончилась послед-ть из 1го
 							else
-								flag4 = 1;
+								flag4 = 1; //не закончилась
 							flag2 = 0;
 							flag1 = 0;
 							cnt = 0;
@@ -145,8 +146,9 @@ void Filethread::scan_text()
 		case 2:
 			cout << "\nПрограмма заверешена...\n";
 			_getch();
-			//return 0;
+			
 			break;
+
 		}
 	}
 }
