@@ -53,11 +53,12 @@ int Menu::show_options_point_one()
 	system("cls");
 	int c;
 	cout << "What do you want to do?" << endl;
-	cout << "1 - Show all route (order by numbers)" << endl;
+	cout << "1 - Show all routes (order by numbers)" << endl;
 	cout << "2 - Find route by its start or finish" << endl;
-	cout << "3 - Add element" << endl;
-	cout << "4 - Redact element" << endl;
-	cout << "5 - Delete element" << endl;
+	cout << "3 - Add routes" << endl;
+	cout << "4 - Redact routes" << endl;
+	cout << "5 - Delete routes" << endl;
+	cout << "6 - Count same routes " << endl;
 	cout << "0 - Back to main menu" << endl;
 	cout << "-> ";
 	cin >> c;
@@ -102,6 +103,7 @@ void Menu::find_route()
 	catch (const char* ex) { cout << "Error: " << ex << endl; }
 	system("pause");
 }
+
 
 void Menu::add_element()
 {
@@ -199,6 +201,24 @@ void Menu::delete_element()
 	system("pause");
 }
 
+void Menu::countt_route()
+{
+	system("cls");
+	string input_name;
+	cin.ignore(32767, '\n');
+	cout << "Input routes name: ";
+	getline(cin, input_name);
+
+	try
+	{
+		cout << "------------------------------------" << endl;
+		list.count_route(input_name);
+		cout << "------------------------------------" << endl;
+	}
+	catch (const char* ex) { cout << "Error: " << ex << endl; }
+	system("pause");
+}
+
 void Menu::point_one()
 {
 	while (exit_minor == 1)
@@ -220,6 +240,8 @@ void Menu::point_one()
 		case 5:
 			delete_element();
 			break;
+		case 6:
+			countt_route();
 		case 0:
 			exit_to_main_menu();
 			break;

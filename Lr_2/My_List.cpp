@@ -150,7 +150,6 @@ void My_List::finding(string name)
 	Elem* tmp;
 	tmp = head;
 	int route_is_in = 0; //признак отстутствия введенного названия
-	//int name_shop = 0; //признак вывода названия на экран
 
 	for (int i = 0; i < m_size; i++)
 	{
@@ -163,6 +162,35 @@ void My_List::finding(string name)
 		tmp = tmp->next;
 	}
 
+	if (route_is_in == 0)
+	{
+		throw "There's no inputtes route.";
+	}
+	//system("pause");
+}
+
+void My_List::count_route(string name)
+{
+	if (m_size == 0)
+	{
+		throw "There's nothing to find, the list is empty.";
+	}
+
+	Elem* tmp;
+	tmp = head;
+	int route_is_in = 0; //признак отстутствия введенного названия
+	int count = 0; //счетчик
+
+	for (int i = 0; i < m_size; i++)
+	{
+		if (tmp->m_data->get_start().compare(name) == 0 )
+		{
+			count++;
+			route_is_in = 1;
+		}
+		tmp = tmp->next;
+	}
+	cout << count << endl;
 	if (route_is_in == 0)
 	{
 		throw "There's no inputtes route.";

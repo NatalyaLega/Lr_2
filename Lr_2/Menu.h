@@ -32,7 +32,7 @@ public:
 	void add_element();
 	void redact_element();
 	void delete_element();
-
+	void countt_route();
 	//методы под вторую лабу
 	void point_two();
 };

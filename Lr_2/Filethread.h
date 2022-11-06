@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-using namespace std;
+using namespace std;  //для 2го задания
 
 class Filethread
 {
